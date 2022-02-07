@@ -46,16 +46,31 @@ class App extends Component {
       _article = <CreateContent onSubmit={function(_title, _desc){
         // add content to this.state.contents
         this.max_content_id = this.max_content_id+1;
+        // ---*** push ***--- 
+        // 원본 그대로 살아있는 상태에서 원본을 변형시킨것
         // this.state.contents.push(
         //   {id:this.max_content_id, title:_title, desc:_desc}
         // );
-        var _contents = this.state.contents.concat({
+
+        // ---*** concat ***---
+        // 원본을 복제해서 교체한 것
+        // var _contents = this.state.contents.concat({
+        //   id: this.max_content_id,
+        //   title: _title,
+        //   desc: _desc,
+        // });
+
+        // ---*** from ***---
+        // 원본을 복제해서 변형시킨것, 즉 원본을 변형시킨것이다
+        var newContents = Array.from(this.state.contents);
+        newContents.push({
           id: this.max_content_id,
           title: _title,
           desc: _desc,
         });
         this.setState({
-          contents: _contents
+          //contents: _contents
+          contents:newContents
         });
         console.log(_title, _desc);
       }.bind(this)}></CreateContent>
@@ -69,7 +84,7 @@ class App extends Component {
           title={this.state.subject.title}
           sub={this.state.subject.sub}
           onChangePage={function () {
-            this.setState({ mode: 'welcome' });
+            this.setState({ mode: 'welcome' }); // 원본을 교체한것
           }.bind(this)}
         >
         </Subject>
